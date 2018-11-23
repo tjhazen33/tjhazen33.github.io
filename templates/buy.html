@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}
+Buy
+{% endblock %}
+{% block main %}
+<h1>Buy Stocks</h1>
+<form action="/buy" method="post">
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Stock symbol" type="text">
+    </div>
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="shares" placeholder="Number of shares" type="text">
+    </div>
+    <button class="btn btn-primary"  type="submit">Purchase</button>
+</form>
+<script>
+    document.querySelector('form').onsubmit = function() {
+        if (!document.querySelector('input[name=symbol]').value) {
+            alert('You must provide a stock symbol!');
+            return false;
+        }
+        if (!document.querySelector('input[name=shares]').value) {
+            alert('You must provide a number of shares');
+            return false;
+        }
+        if (document.querySelector('input[name=shares]').value < 0) {
+            alert('You must provide a positive number of shares');
+            return false;
+        }
+        return true;
+    };
+</script>
+{% endblock %}

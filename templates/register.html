@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}
+Register
+{% endblock %}
+{% block main %}
+<form action="/register" method="post">
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+    </div>
+    <div class="form-group">
+        <input class="form-control" name="password" id="password" placeholder="Password" type="password">
+    </div>
+    <div class="form-group">
+        <input class="form-control" id="confirmation" name="confirmation" placeholder="Retype Password" type="password">
+    </div>
+    <button class="btn btn-primary"  type="submit">Create</button>
+</form>
+<script>
+    document.querySelector('form').onsubmit = function(event) {
+        event.preventDefault();
+         $.get( "/check",  {username:document.querySelector('input[name=username]').value}, function( data ) {
+            if (data == false)
+                alert( "username taken" );
+
+            if (!document.querySelector('input[name=username]').value) {
+                alert('You must provide your a username!');
+                return false;
+            }
+            else if (!document.getElementById('password').value) {
+                alert('Please provide a password');
+                return false;
+            }
+            else if (!document.getElementById('confirmation').value) {
+                alert('Please confirm password');
+                return false;
+            }
+            else if (!(document.getElementById('password').value == document.getElementById('confirmation').value)) {
+                alert('Passwords do not match');
+                return false;
+            }
+            else
+                document.querySelector('form').submit();
+                return true;
+            });
+    };
+</script>
+{% endblock %}

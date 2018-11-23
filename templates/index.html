@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+Index
+{% endblock %}
+{% block main %}
+<h1>Index</h1>
+<table class="table" id="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Stock</th>
+            <th scope="col">Shares owned</th>
+            <th scope="col">Stock current price</th>
+            <th scope="col">Total value of holding</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for row in rows%}
+            <td>{{ row["stock"] }}</td>
+            <td>{{ row["SUM(amount)"] }}</td>
+            <td>${{ row["price"] }}</td>
+            <td>${{ '{0:.2f}'.format(row["value"])  }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <div>
+        <p style="font-size:200%;">
+            Cash: {{ cash2|usd }}
+        </p>
+        <p style="font-size:200%;">
+            Total value of cash and holdings: {{ cash_plus_stocks|usd }}
+        </p>
+    </div>
+</table>
+{% endblock %}
